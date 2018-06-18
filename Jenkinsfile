@@ -1,46 +1,20 @@
-pipeline {
-    agent any {
+node ('linux') {
 
+    stage('Build') {
 
-      docker {
-        image 'node:6.3' }
-      }
+          echo 'Building...'
+          sh 'npm --version'
 
-      environment{
-        DOCKER_HUB_TRIGGER:  curl -H "Content-Type: application/json" --data '{"build": true}' -X POST https://registry.hub.docker.com/u/jellydones/pluralsight-docker-ci-personal
-      }
+    }
+    stage('Test'){
 
+        echo 'Testing...'
+        sh 'node --version'
 
-    stages {
-        stage('Build') {
-            steps {
-              echo 'Building...'
-              sh 'npm --version'
-            }
-        }
-        stage('Test'){
-          steps{
-            echo 'Testing...'
-            sh 'node --version'
-          }
-        }
-        stage('Deploy'){
-          echo 'Deploying...'
-        }
+    }
+    stage('Deploy'){
+      echo 'Deploying...'
     }
 
 
-    post{
-      always{
-        echo 'This will always run'
-      }
-      failure{
-        echo 'Build was not successful'
-      }
-      success{
-        echo 'Build was successful'
-      }
-    }
 }
-
-// sh commands may need to change to bat commands
