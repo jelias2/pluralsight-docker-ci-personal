@@ -1,29 +1,29 @@
 node  {
-// ('linux') ^^
-//    withEnv([
-//    DOCKER_HUB_TRIGGER='curl -H "Content-Type: application/json" --data \'{"build": true}\' -X POST https://registry.hub.docker.com/u/jellydones/pluralsight-docker-ci-personal'
-//      ])
+  docker.image('node:7-alpine').inside{
+  // ('linux') ^^
+  //    withEnv([
+  //    DOCKER_HUB_TRIGGER='curl -H "Content-Type: application/json" --data \'{"build": true}\' -X POST https://registry.hub.docker.com/u/jellydones/pluralsight-docker-ci-personal'
+  //      ])
 
-    stage('Build') {
+      stage('Build') {
 
-          echo 'Building...'
-	  sh 'docker version'
-	  sh 'docker build -t nvm'
-	  sh 'docker images'
-	  sh 'docker run -it nvm bash'
-          sh 'npm --version'
+            echo 'Building...'
+  	  sh 'docker version'
+  	  sh 'docker build -t nvm'
+  	  sh 'docker images'
+  	  sh 'docker run -it nvm bash'
+            sh 'npm --version'
 
-    }
-    stage('Test'){
+      }
+      stage('Test'){
 
-        echo 'Testing...'
-        sh 'node --version'
+          echo 'Testing...'
+          sh 'node --version'
 
-    }
-    stage('Deploy'){
-      echo 'Deploying...'
-      sh 'curl -H "Content-Type: application/json" --data \'{"build": true}\' -X POST https://registry.hub.docker.com/u/jellydones/pluralsight-docker-ci-personal'
-    }
-
-
+      }
+      stage('Deploy'){
+        echo 'Deploying...'
+        sh 'curl -H "Content-Type: application/json" --data \'{"build": true}\' -X POST https://registry.hub.docker.com/u/jellydones/pluralsight-docker-ci-personal'
+      }
+  }
 }
