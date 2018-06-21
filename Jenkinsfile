@@ -7,6 +7,10 @@ node  {
     stage('Build') {
 
           echo 'Building...'
+	  sh 'docker version'
+	  sh 'docker build -t nvm'
+	  sh 'docker images'
+	  sh 'docker run -it nvm bash'
           sh 'npm --version'
 
     }
